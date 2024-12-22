@@ -11,6 +11,10 @@ def home():
 def medicine():
     return render_template('medicine.html')
 
+@app.route('/favicon.ico')
+def favicon():
+    return app.send_static_file('favicon.png')
+
 @app.route('/book_appointment', methods=['POST'])
 def book_appointment():
     email = request.form.get('email')
@@ -33,4 +37,5 @@ def submit_purchase():
 
 if __name__ == '__main__':
     app.run(debug=True)
+
 
