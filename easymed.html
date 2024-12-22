@@ -16,10 +16,8 @@
 
         function toggleTranslate() {
             const translateElement = document.getElementById('google_translate_element');
-            if (translateElement.style.display === 'none') {
-                translateElement.style.display = 'block';
-            } else {
-                translateElement.style.display = 'none';
+            if (translateElement) {
+                translateElement.style.display = translateElement.style.display === 'none' ? 'block' : 'none';
             }
         }
 
@@ -84,15 +82,6 @@
             align-items: center;
         }
 
-        .header-left {
-            text-align: left;
-        }
-
-        .header-right {
-            display: flex;
-            gap: 0.5rem;
-        }
-
         main {
             padding: 1rem;
             max-width: 800px;
@@ -132,6 +121,18 @@
         .theme-toggle:hover, .speak-button:hover, .translate-button:hover {
             background-color: var(--button-hover-color);
         }
+
+        #google_translate_element {
+            display: none; /* Initially hidden */
+            position: fixed;
+            bottom: 10px;
+            left: 10px;
+            background: var(--background-color);
+            padding: 0.5rem;
+            border: 1px solid var(--text-color);
+            border-radius: 5px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
     </style>
 </head>
 <body onload="onLoad()">
@@ -159,5 +160,7 @@
             <button type="submit" class="button">Book an Appointment</button>
         </form>
     </main>
+    <div id="google_translate_element"></div>
 </body>
 </html>
+
