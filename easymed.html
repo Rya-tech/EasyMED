@@ -78,8 +78,19 @@
         header {
             background-color: var(--button-bg-color);
             color: var(--text-color);
-            text-align: center;
-            padding: 1rem 0;
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header-left {
+            text-align: left;
+        }
+
+        .header-right {
+            display: flex;
+            gap: 0.5rem;
         }
 
         main {
@@ -108,7 +119,6 @@
         }
 
         .theme-toggle, .speak-button, .translate-button {
-            margin: 1rem auto;
             padding: 0.5rem 1rem;
             font-size: 1rem;
             cursor: pointer;
@@ -126,17 +136,21 @@
 </head>
 <body onload="onLoad()">
     <header>
-        <h1>EasyMED</h1>
-        <button class="theme-toggle" onclick="toggleTheme()">Toggle Light/Dark Mode</button>
-        <button class="speak-button" onclick="speakPageContent()">Read Page Content</button>
-        <button class="translate-button" onclick="toggleTranslate()">Translate Page</button>
-        <div id="google_translate_element" style="display: none;"></div>
+        <div class="header-left">
+            <h1>EasyMED</h1>
+            <p>Because it's easy and convenient.</p>
+        </div>
+        <div class="header-right">
+            <button class="theme-toggle" onclick="toggleTheme()">Toggle Light/Dark Mode</button>
+            <button class="speak-button" onclick="speakPageContent()">Read Page Content</button>
+            <button class="translate-button" onclick="toggleTranslate()">Translate Page</button>
+        </div>
     </header>
     <main>
-        <p>Because it's easy and convenient. Our services include:</p>
+        <p>Our services:</p>
         <a class="button" href="https://meet.google.com" target="_blank">Talk to a Doctor</a>
         <a class="button" href="/medicine">Buy Medicine</a>
-        <a class="button" href="https://www.google.com/maps/search/government+hospital+near+me" target="_blank">Locate Nearby Government Hospital</a>
+        <a class="button" href="https://www.google.com/maps/search/government+hospital+near+me" target="_blank">Locate Nearby Government Hospitals</a>
 
         <h2>Contact</h2>
         <form action="/book_appointment" method="post">
