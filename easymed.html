@@ -4,14 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EasyMED</title>
-    <script>
-        function speakPageContent() {
-            if ('speechSynthesis' in window) {
-                const pageContent = document.body.textContent || document.body.innerText;
-                const speech = new SpeechSynthesisUtterance(pageContent);
-                window.speechSynthesis.speak(speech);
+
+    <link rel="icon" href="/static/favicon.png" type="image/png">
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement(
+                { pageLanguage: 'en', layout: google.translate.TranslateElement.InlineLayout.SIMPLE },
+                'google_translate_element'
+            );
+        }
+
+        function toggleTranslate() {
+            const translateElement = document.getElementById('google_translate_element');
+            if (translateElement.style.display === 'none') {
+                translateElement.style.display = 'block';
             } else {
-                console.log("Speech synthesis is not supported in this browser.");
+                translateElement.style.display = 'none';
             }
         }
 
@@ -30,7 +38,19 @@
             document.documentElement.setAttribute('data-theme', theme);
             localStorage.setItem('theme', theme);
         }
+
+        function speakPageContent() {
+            if ('speechSynthesis' in window) {
+                const content = document.body.innerText; 
+                const utterance = new SpeechSynthesisUtterance(content); 
+                utterance.lang = 'en-US'; 
+                window.speechSynthesis.speak(utterance);
+            } else {
+                alert('Sorry, your browser does not support speech synthesis.');
+            }
+        }
     </script>
+    <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
     <style>
         :root {
             --background-color: #f4f4f9;
@@ -87,7 +107,7 @@
             transform: scale(1.05);
         }
 
-        .theme-toggle, .speak-button {
+        .theme-toggle, .speak-button, .translate-button {
             margin: 1rem auto;
             padding: 0.5rem 1rem;
             font-size: 1rem;
@@ -99,19 +119,8 @@
             transition: background-color 0.3s ease;
         }
 
-        .theme-toggle:hover, .speak-button:hover {
+        .theme-toggle:hover, .speak-button:hover, .translate-button:hover {
             background-color: var(--button-hover-color);
-        }
-
-        @media (max-width: 600px) {
-            .button {
-                font-size: 0.9rem;
-                padding: 0.8rem;
-            }
-
-            main {
-                padding: 0.5rem;
-            }
         }
     </style>
 </head>
@@ -120,10 +129,11 @@
         <h1>EasyMED</h1>
         <button class="theme-toggle" onclick="toggleTheme()">Toggle Light/Dark Mode</button>
         <button class="speak-button" onclick="speakPageContent()">Read Page Content</button>
+        <button class="translate-button" onclick="toggleTranslate()">Translate Page</button>
+        <div id="google_translate_element" style="display: none;"></div>
     </header>
     <main>
         <p>Because it's easy and convenient. Our services include:</p>
-
         <a class="button" href="https://meet.google.com" target="_blank">Talk to a Doctor</a>
         <a class="button" href="/medicine">Buy Medicine</a>
         <a class="button" href="https://www.google.com/maps/search/government+hospital+near+me" target="_blank">Locate Nearby Government Hospital</a>
@@ -131,7 +141,7 @@
         <h2>Contact</h2>
         <form action="/book_appointment" method="post">
             <label for="email">Your Email:</label><br>
-            <input type="email" id="email" name="email" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="Enter a valid email address"><br><br>
+            <input type="email" id="email" name="email" required><br>
             <button type="submit" class="button">Book an Appointment</button>
         </form>
     </main>
